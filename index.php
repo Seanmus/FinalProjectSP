@@ -14,7 +14,7 @@
 <body>
     <h1> <a href="register.html">Register for Account</a></h1>
     <h1><a href ="">Login</a></h1>
-    <h1> <a href = "">Manage Accounts (Admins only!)</a></h1>
+    <h1> <a href = "editAccount.php">Manage Accounts (Admins only!)</a></h1>
     <h3></h3>
     <p>hi</p>
 </body>

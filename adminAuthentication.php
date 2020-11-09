@@ -2,7 +2,7 @@
 
     Assignment 4
     Name: Sean Piche
-    Date:Oct 6th 2020
+    Date:Nov 8th 2020
     Description: Ensures the user is logged in.
 
 ----------------->
