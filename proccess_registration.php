@@ -1,58 +1,67 @@
 <!-------w--------
 
-    Assignment 4
+    Final Project 
     Name: Sean Piche
-    Date: Oct 6th 2020
+    Date: Nov 7th 2020
     Description: Validates the users inputed data and saves records to the database.
 
 ----------------->
 <?php
-    require 'authenticate.php';
     require 'connect.php';
 
+    $noErrors = true; 
+
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $query = "SELECT * FROM accounts";
+    $statement = $db->prepare($query);
+    $statement->execute();
+
+
+    while($row = $statement->fetch()){
+        if($row['username'] === $username){
+            $noErrors = false;
+            echo 'username already exists';
+        }
+    }
+    
+
+    
+
+
     function valid(){
-        if(!filter_input(INPUT_POST, 'tweet', FILTER_SANITIZE_FULL_SPECIAL_CHARS) || strlen($_POST['tweet']) < 0){
+        if(!filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS) || strlen($_POST['username']) < 0){
+            echo 'invalid username';
             return false;
         }
-        if(!filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS) || strlen($_POST['title']) < 0){
+        if(!filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS) || strlen($_POST['password']) < 0){
+            echo 'invalid password';
+            return false;
+        }
+        if(!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
+            echo 'invalid email';
             return false;
         }
         return true;
     }
-    if(valid()){
-        $tweet = filter_input(INPUT_POST, 'tweet', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $submit_type = filter_input(INPUT_POST, 'command', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if(isset($_POST['id'])){
-            if($submit_type === 'Update'){
-                $query = "UPDATE tweets SET tweet = :tweet, Title = :title, id = :id WHERE id = :id";
-                $statement = $db->prepare($query);
-                $statement->bindValue(':tweet', $tweet);
-                $statement->bindValue(':title', $title);
-                $statement->bindValue(':id', $id);
-                $statement->execute();
-            }
-            else{
-                $query = "DELETE FROM tweets WHERE id = :id";
-                $statement = $db->prepare($query);
-                $statement->bindValue(':id', $id);
-                $statement->execute();
-            }
-        }
-        else{
-            $query = "INSERT INTO tweets (tweet, Title) values (:tweet, :title)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':tweet', $tweet);
-            $statement->bindValue(':title', $title);
-            $statement->execute();
-        }
-        header('Location: index.php');
-        exit();
+    if(valid() &&  $noErrors){
+
+        //$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $query = "INSERT INTO accounts (username, password, email) values (:username, :password, :email)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':password', $password);
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+
+        //header('Location: index.php');
+        //exit();
     }
 
     
-    echo 'hi, your data has a bit of a boo boo please re enter.';
+    //echo 'hi, your data has a bit of a boo boo please re enter.';
 
 
 ?>

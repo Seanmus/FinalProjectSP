@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="index.js?1"></script>
-    <link rel="stylesheet" href = "styles.css">
+    <script src="register.js" type="text/javascript"></script>
 </head>
 <body>
     <h1>Enter in your credentials.</h1>
-    <form id = "form" method="POST">
+    <form id = "loginform" action="proccess_registration.php" method="post">
 
         <label for="username">Username</label>
-        <input type="text" id = "username" name="user">
+        <input type="text" id = "username" name="username">
 
         <label for="password">Password</label>
         <input type="text" id = "password" name="password">
+
+        <label for="passwordReEnter">Re enter your password</label>
+        <input type="text" id = "passwordReEnter" name="passwordReEnter">
+        <p id="passwordError">* The passwords do not match.</p>
 
         <label for="email">Email</label>
         <input type="text" id = "email" name="email">
