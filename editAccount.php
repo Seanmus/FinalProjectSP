@@ -2,10 +2,15 @@
     require 'adminAuthentication.php';
     require 'connect.php';
  
-    $username = filter_input(INPUT_POST, 'usernameShown', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $username = filter_input(INPUT_GET, 'usernameShown', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $query = "SELECT * FROM accounts WHERE username = '{$username}'";
     $statement = $db->prepare($query);
     $statement->execute();
+
+
+    $query = "SELECT * FROM accounts";
+    $statementUsers = $db->prepare($query);
+    $statementUsers->execute();
 ?>
 
 
@@ -18,9 +23,10 @@
 <body>
 <h1><a href="index.php">Home</a></h1>
 <form method="post">
-    <label for="usernameShown">Account to change</label>
-    <input name="usernameShown" id="usernameShown">
-    <input type="submit" value="submit">
+<?php while($row = $statementUsers->fetch()): ?>
+    <a href="editAccount.php?usernameShown=<?=$row['username']?>"><?=$row['username']?></a>
+    <br>
+<?php endwhile ?>
 </form>
 
 <form action="proccess_registration.php" method="post">
@@ -42,7 +48,7 @@
             <p>
                 <input type="hidden" name="userId" value="<?=$row['userId']?>" />
                 <input type="submit" name="command" value="Update" />
-                <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')" />
+                <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this account?')" />
             </p>
         <?php endwhile ?>
     </fieldset>
