@@ -11,7 +11,7 @@
     $admins = $statement->fetchAll();
 
     $rowCount = $statement->rowCount();
-    if(!isset($_SESSION['password']) || !isset($_SESSION['username']) || $_SESSION['password'] != $password || $_SESSION['username'] != $username){
+    if(!isset($_SESSION['password']) || !isset($_SESSION['username'])) {
         if(!$rowCount > 0)
         {
             session_destroy();
@@ -29,8 +29,9 @@
             {
                 $_SESSION['admin'] = $admin['admin'];
             }
+            header('Location: index.php');
+            exit();
         }
     }
-    header('Location: index.php');
-    exit();
+
 ?>
