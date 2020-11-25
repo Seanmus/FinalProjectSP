@@ -28,6 +28,13 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
+    <form action = "searchResults.php" id = "form" method="POST">
+      <label for="title">Search for a game by title</label>
+      <input type="text" id = "title" name="title">
+      <button type="submit">Submit search</button>
+    </form>
+    </br>
+    
     <div id="wrapper">
         <div id="header">
             <h1><a href="index.php">Edit Post</a></h1>

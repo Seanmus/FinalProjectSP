@@ -1,5 +1,5 @@
 <?php
-    require 'loginProcess.php'
+    require 'loginProcess.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +11,13 @@
     <script src="create.js" type="text/javascript"></script>
 </head>
 <body>
+    <form action = "searchResults.php" id = "form" method="POST">
+      <label for="title">Search for a game by title</label>
+      <input type="text" id = "title" name="title">
+      <button type="submit">Submit search</button>
+    </form>
+    </br>
+
     <h1>Enter in the details of your game details.</h1>
     <form id = "game" action="createProcess.php" method="post">
 

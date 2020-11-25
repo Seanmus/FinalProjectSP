@@ -11,7 +11,14 @@
     <title>Show</title>
 </head>
 <body>
-<h1><a href="index.php">Home</a></h1>
+
+    <form action = "searchResults.php" id = "form" method="POST">
+      <label for="title">Search for a game by title</label>
+      <input type="text" id = "title" name="title">
+      <button type="submit">Submit search</button>
+    </form>
+    </br>
+    <h1><a href="index.php">Home</a></h1>
 
 <form action="loginProcess.php" method="post">
         <p>

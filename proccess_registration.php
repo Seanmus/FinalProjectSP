@@ -57,7 +57,7 @@
                 $statement->bindValue(':password', $password);
                 $statement->bindValue(':email', $email);
                 $statement->execute();
-                header('Location: index.php');
+                header('Location: profilePhoto.php');
                 exit();
             }
             else{
@@ -75,14 +75,19 @@
             {
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    
+
                 $query = "INSERT INTO accounts (username, password, email) values (:username, :password, :email)";
                 $statement = $db->prepare($query);
                 $statement->bindValue(':username', $username);
                 $statement->bindValue(':password', $password);
                 $statement->bindValue(':email', $email);
                 $statement->execute();
-                header('Location: index.php');
+
+                session_start();
+                $_SESSION['password'] = $password;
+                $_SESSION['username'] = $username;
+
+                header('Location: profilePhoto.php');
                 exit();
             }
         }      
