@@ -65,7 +65,7 @@
             <p>
                 <input type="hidden" name="id" value="<?=$row['id']?>" />
                 <input type="submit" name="command" value="Update" />
-                <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')" />
+                <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this account?')" />
             </p>
         <?php endwhile ?>
     </fieldset>

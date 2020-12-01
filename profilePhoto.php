@@ -29,7 +29,11 @@
 
         if(file_is_an_image($temporary_image_path, $new_image_path)){
             move_uploaded_file($temporary_image_path, $new_image_path);
-
+            $query = "UPDATE accounts SET profilePhoto = :new_image_path WHERE username = :username";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':username', $_SESSION['username']);
+            $statement->bindValue(':new_image_path', $_SESSION['username'].".jpg");
+            $statement->execute();
         }
     }
 ?>

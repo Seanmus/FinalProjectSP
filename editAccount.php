@@ -46,6 +46,11 @@
                 <textarea name="email" id="email"><?=$row['email']?></textarea>
             </p>
             <p>
+                <?php if(file_exists('uploads/'.$_SESSION['username'].'.jpg')) : ?>
+                    <img src="uploads/<?=$row['profilePhoto']?>">
+                <?php endif ?>
+            </p>
+            <p>
                 <input type="hidden" name="userId" value="<?=$row['userId']?>" />
                 <input type="submit" name="command" value="Update" />
                 <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this account?')" />
