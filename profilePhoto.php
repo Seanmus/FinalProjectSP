@@ -1,5 +1,6 @@
 <?php
     require 'loginProcess.php';
+    require 'connect.php';
     function file_upload_path($original_filename, $upload_subfolder_name = 'uploads') {
        $current_folder = dirname(__FILE__);
        $path_segments = [$current_folder, $upload_subfolder_name, basename($_SESSION['username'].".jpg")];
@@ -28,6 +29,7 @@
 
         if(file_is_an_image($temporary_image_path, $new_image_path)){
             move_uploaded_file($temporary_image_path, $new_image_path);
+
         }
     }
 ?>

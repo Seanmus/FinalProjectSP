@@ -6,9 +6,6 @@
     $query = "SELECT * FROM games ORDER BY $sort";
     $statement = $db->prepare($query);
     $statement->execute();
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +29,9 @@
     <?php endif ?>
 
     <?php if (isset($_SESSION['username'])): ?>
+        <?php if(file_exists('uploads/'.$_SESSION['username'].'.jpg')) : ?>
+          <img src="uploads/<?=$_SESSION['username']?>.jpg">
+        <?php endif ?>
         <h2>Welcome <?=$_SESSION['username']?><h2>
         <h2> <a href = "profilePhoto.php">Upload a Profile Photo</a></h2>
         </br>
