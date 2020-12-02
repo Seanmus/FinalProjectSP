@@ -9,7 +9,7 @@
 
 <?php
     require 'connect.php';
-
+    session_start();
     if(!filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT)){
         header('Location: index.php');
         exit();
@@ -52,6 +52,16 @@
         </div>
     </div>
     </div>
+    <div>
+    <?php if (isset($_SESSION['username'])): ?>
+        <form action="uploadComment.php" method="post">
+                <input type="hidden" name="itemId" value="<?=$row['id']?>"/>
+                <label for="comment">Comment</label>
+                <textarea name="comment" id="comment"></textarea>
+                <input type="submit" name="command" value="Update" />
+        </form>
+    </div>
+    <?php endif?>
     <?php endwhile ?>
         <div id="footer">
             Copywrong 2020 - No Rights Reserved
