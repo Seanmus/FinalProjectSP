@@ -45,22 +45,21 @@
     <?php while($row = $statement->fetch()): ?>
     <div class="game_post">
       <h2><a href="show.php?id=<?=$row['id'] ?>"><?=$row['name']?></a></h2>
-      <form id = "game" action="searchResults.php" method="post">
-
-      <label for ="console"> Choose a Platform: </label>
-      <select name="console" id="platform">
-        <option value="">No Console</option>
-      <?php while($rowCategory = $statementCategories->fetch()): ?>
-        <option value="<?=$rowCategory['console']?>"><?=$rowCategory['console']?></option>
-      <?php endwhile ?>
-      </select>
-
-      <input type="hidden" name="title" value="<?=$name?>" />
-
-      <button type="submit">Submit Search</button>
-</form>
     </div>
     <?php endwhile ?>
+    <form id = "game" action="searchResults.php" method="post">
+
+    <label for ="console"> Choose a Platform: </label>
+    <select name="console" id="platform">
+      <option value="">No Console</option>
+    <?php while($rowCategory = $statementCategories->fetch()): ?>
+      <option value="<?=$rowCategory['console']?>"><?=$rowCategory['console']?></option>
+    <?php endwhile ?>
+    </select>
+
+    <input type="hidden" name="title" value="<?=$name?>" />
+<button type="submit">Submit Search</button>
+</form>
 <?php else: ?>
   <p>No rows found for <?=$name?></p>
 <?php endif ?>
