@@ -2,10 +2,26 @@
     session_start();
     require 'connect.php';
 
+    
+    $platform = filter_input(INPUT_GET, 'platform', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $sort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $query = "SELECT * FROM games ORDER BY $sort";
+    $query = "";
+    if(!empty($platform))
+    {
+        $query = "SELECT * FROM games WHERE platform = '{$platform}'";
+    }
+
+    if(!empty($sort))
+    {
+        $query = "SELECT * FROM games ORDER BY $sort";
+    }
     $statement = $db->prepare($query);
     $statement->execute();
+
+    $query = "SELECT * FROM consoles";
+    $statementCategories = $db->prepare($query);
+    $statementCategories->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +59,10 @@
         <h2><a href ="index.php?sort=name">Name A-Z</a></h2>
         <h2><a href ="index.php?sort=dateCreated">Date Created</a></h2>
         <h2><a href ="index.php?sort=dateUpdated">Date Updated</a></h2>
+        <h1>View All Games from these consoles</h1>
+        <?php while($row = $statementCategories->fetch()): ?>
+          <h2><a href ="index.php?platform=<?=$row['console']?>"><?=$row['console']?></a></h2>
+        <?php endwhile ?>
         
         </br>
 

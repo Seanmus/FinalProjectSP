@@ -8,6 +8,9 @@
     $statement->execute();
 
 
+    $query = "SELECT * FROM accounts";
+    $statementUsers = $db->prepare($query);
+    $statementUsers->execute();
 ?>
 
 
