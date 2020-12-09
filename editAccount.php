@@ -51,6 +51,10 @@
                 <?php endif ?>
             </p>
             <p>
+                <label for="deleteImage">Delete Profile Photo</label>
+                <input type="checkbox" id="deleteImage" name="deleteImage" value ="delete">
+            </p>
+            <p>
                 <input type="hidden" name="userId" value="<?=$row['userId']?>" />
                 <input type="submit" name="command" value="Update" />
                 <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you wish to delete this account?')" />

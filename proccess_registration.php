@@ -12,17 +12,13 @@
     $noErrors = true; 
 
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $deleteCheckBox = filter_input(INPUT_POST, 'deleteImage', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $query = "SELECT * FROM accounts WHERE username = '{$username}'";
     $statement = $db->prepare($query);
     $statement->execute();
 
 
-    while($row = $statement->fetch()){
-        if($row['username'] === $username){
-            $noErrors = false;
-            echo 'username already exists';
-        }
-    }
+
     
     function valid(){
         if(!filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS) || strlen($_POST['username']) < 0){
@@ -48,17 +44,40 @@
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
+            while($row = $statement->fetch()){
+                $imagePath = 'uploads/' . $row['profilePhoto'];
+            }
+
+            echo $imagePath;
             print_r($submit_type);
             if($submit_type === 'Update'){
-                $query = "UPDATE accounts SET userId = :userId, username = :username, password = :password, email = :email WHERE userId = :userId";
-                $statement = $db->prepare($query);
-                $statement->bindValue(':userId', $userId);
-                $statement->bindValue(':username', $username);
-                $statement->bindValue(':password', $password);
-                $statement->bindValue(':email', $email);
-                $statement->execute();
-                header('Location: profilePhoto.php');
-                exit();
+                if($deleteCheckBox === 'delete'){
+                    if (file_exists($imagePath)) 
+                    {
+                       unlink($imagePath);
+                       echo "File Successfully Deleted."; 
+                   }
+                    $query = "UPDATE accounts SET userId = :userId, username = :username, password = :password, email = :email, profilePhoto = :profilePhoto WHERE userId = :userId";
+                    $statement = $db->prepare($query);
+                    $statement->bindValue(':userId', $userId);
+                    $statement->bindValue(':username', $username);
+                    $statement->bindValue(':password', $password);
+                    $statement->bindValue(':email', $email);
+                    $statement->bindValue(':profilePhoto', null);
+                    $statement->execute();
+                }
+                else{
+                    $query = "UPDATE accounts SET userId = :userId, username = :username, password = :password, email = :email WHERE userId = :userId";
+                    $statement = $db->prepare($query);
+                    $statement->bindValue(':userId', $userId);
+                    $statement->bindValue(':username', $username);
+                    $statement->bindValue(':password', $password);
+                    $statement->bindValue(':email', $email);
+                    $statement->execute();
+                }
+
+                    header('Location: profilePhoto.php');
+                    exit();
             }
             else{
                 $query = "DELETE FROM accounts WHERE userId = :userId";
@@ -73,6 +92,12 @@
         else{
             if($noErrors)
             {
+                while($row = $statement->fetch()){
+                    if($row['username'] === $username){
+                        $noErrors = false;
+                        echo 'username already exists';
+                    }
+                }
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 

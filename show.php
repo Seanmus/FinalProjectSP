@@ -18,6 +18,10 @@
     $query = "SELECT * FROM games WHERE id = {$id}";
     $statement = $db->prepare($query);
     $statement->execute();
+
+    $commentQuery ="SELECT * FROM comments WHERE itemId = {$id} ORDER BY dateCreated DESC";
+    $commentStatement = $db->prepare($commentQuery);
+    $commentStatement->execute();
 ?>
 
 
@@ -60,6 +64,19 @@
                 <textarea name="comment" id="comment"></textarea>
                 <input type="submit" name="command" value="Update" />
         </form>
+    </div>
+    <div>
+        <h1>Comments</h1>
+        <?php while($commentRow = $commentStatement->fetch()): ?>
+            <h2>User: <?=$commentRow['username']?></h2>
+            <p>Date Created: <?=$commentRow['dateCreated']?></p>
+            <p>Comment: <?=$commentRow['comment']?></p>
+            <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
+                <a>You have administrative access<a>
+                <h1> <a href = "removeComment.php?id=<?=$commentRow['id']?>">RemoveComment(Admins only!)</a></h1>
+            <?php endif ?>
+        <?php endwhile?>
+
     </div>
     <?php endif?>
     <?php endwhile ?>
