@@ -37,6 +37,8 @@
         </br>
         <h1> <a href = "logout.php">Logout</a></h1>
         <h1><a href ="create.php">Enter a record</a></h1>
+        <h2><a href ="categories.php">Create a Category</a></h2>
+        <h2><a href ="editCategory.php">Edit Categories</a></h2>
         <h1>Sort by<h1>
         <h2><a href ="index.php?sort=name">Name A-Z</a></h2>
         <h2><a href ="index.php?sort=dateCreated">Date Created</a></h2>

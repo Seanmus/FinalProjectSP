@@ -1,5 +1,10 @@
 <?php
     require 'loginProcess.php';
+    require 'connect.php';
+
+    $query = "SELECT * FROM consoles";
+    $statement = $db->prepare($query);
+    $statement->execute();
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +33,12 @@
         <label for="genre">Genre</label>
         <input type="text" id = "genre" name="genre">
 
-        <label for="platform">Platform</label>
-        <input type="text" id = "platform" name="platform">
-        <p id="platformError">* The platform is required.</p>
+        <label for ="platform"> Choose a Platform: </label>
+        <select name="platform" id="platform">
+        <?php while($row = $statement->fetch()): ?>
+            <option value="<?=$row['console']?>"><?=$row['console']?></option>
+        <?php endwhile ?>
+        </select>
 
         <label for="condition">Condition</label>
         <input type="text" id = "gameCondition" name="gameCondition">
