@@ -45,15 +45,18 @@
                 <label for="email">Email</label>
                 <textarea name="email" id="email"><?=$row['email']?></textarea>
             </p>
-            <p>
-                <?php if(file_exists('uploads/'.$_SESSION['username'].'.jpg')) : ?>
-                    <img src="uploads/<?=$row['profilePhoto']?>">
+            <?=$row['username']. '.jpg' ?>
+                <?php if(file_exists('uploads/' .$row['username'] . '.jpg')) : ?>
+                    <p>  
+                        <img src="uploads/<?=$row['profilePhoto']?>">
+                    </p>
+                    <p>
+                        <label for="deleteImage">Delete Profile Photo</label>
+                        <input type="checkbox" id="deleteImage" name="deleteImage" value ="delete">
+                    </p>
                 <?php endif ?>
-            </p>
-            <p>
-                <label for="deleteImage">Delete Profile Photo</label>
-                <input type="checkbox" id="deleteImage" name="deleteImage" value ="delete">
-            </p>
+
+
             <p>
                 <input type="hidden" name="userId" value="<?=$row['userId']?>" />
                 <input type="submit" name="command" value="Update" />
