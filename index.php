@@ -40,22 +40,22 @@
     </form>
 
     <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
-        <h2>You have administrative access<h2>
+        <h2>You have administrative access</h2>
         <h1> <a href = "editAccount.php">Manage Accounts (Admins only!)</a></h1>
     <?php endif ?>
 
     <?php if (isset($_SESSION['username'])): ?>
         <?php if(file_exists('uploads/'.$_SESSION['username'].'.jpg')) : ?>
-          <img src="uploads/<?=$_SESSION['username']?>.jpg">
+          <img src="uploads/<?=$_SESSION['username']?>.jpg" alt = "profile photo">
         <?php endif ?>
-        <h2>Welcome <?=$_SESSION['username']?><h2>
+        <h2>Welcome <?=$_SESSION['username']?></h2>
         <h2> <a href = "profilePhoto.php">Upload a Profile Photo</a></h2>
-        </br>
+        <br>
         <h1> <a href = "logout.php">Logout</a></h1>
         <h1><a href ="create.php">Enter a record</a></h1>
         <h2><a href ="categories.php">Create a Category</a></h2>
         <h2><a href ="editCategory.php">Edit Categories</a></h2>
-        <h1>Sort by<h1>
+        <h1>Sort by</h1>
         <h2><a href ="index.php?sort=name">Name A-Z</a></h2>
         <h2><a href ="index.php?sort=dateCreated">Date Created</a></h2>
         <h2><a href ="index.php?sort=dateUpdated">Date Updated</a></h2>
@@ -64,7 +64,7 @@
           <h2><a href ="index.php?platform=<?=$row['console']?>"><?=$row['console']?></a></h2>
         <?php endwhile ?>
         
-        </br>
+        <br>
 
         <?php if(!empty($sort)) : ?>
         <h2>Sorting by <?=$sort?></h2>
